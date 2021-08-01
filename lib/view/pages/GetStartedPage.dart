@@ -37,7 +37,14 @@ class GetStartedPage extends StatelessWidget {
                       whiteTextStyle.copyWith(fontWeight: light, fontSize: 16),
                   textAlign: TextAlign.center,
                 ),
-                CustomButton(title: "Get Started", width: 220, onPressed: (){Navigator.pushNamed(context, "/sign-up");},margin: EdgeInsets.only(top: 50,bottom: 80),)
+                CustomButton(
+                  title: "Get Started",
+                  width: 220,
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/sign-in");
+                  },
+                  margin: EdgeInsets.only(top: 50, bottom: 80),
+                )
               ],
             ),
           )

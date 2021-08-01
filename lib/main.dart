@@ -6,6 +6,7 @@ import 'package:mantap/cubit/PageCubit.dart';
 import 'package:mantap/view/pages/BonusPage.dart';
 import 'package:mantap/view/pages/GetStartedPage.dart';
 import 'package:mantap/view/pages/MainPage.dart';
+import 'package:mantap/view/pages/SignInPage.dart';
 import 'package:mantap/view/pages/SignUpPage.dart';
 import 'package:mantap/view/pages/SplashPage.dart';
 
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
           '/':(context)=>SplashPage(),
           '/get-started':(context)=>GetStartedPage(),
           '/sign-up':(context)=>SignUpPage(),
+          '/sign-in':(context)=>SignInPage(),
           '/bonus':(context)=>BonusPage(),
           '/main':(context)=>MainPage()
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mantap/cubit/AuthCubit.dart';
+import 'package:mantap/cubit/PageCubit.dart';
 import 'package:mantap/shared/theme.dart';
 import 'package:mantap/view/components/CustomButton.dart';
 
@@ -28,6 +29,7 @@ class SettingPage extends StatelessWidget {
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(backgroundColor: redColor, content: Text(state.error)));
       } else if (state is AuthInitial) {
+        context.read<PageCubit>().setPage(0);
         Navigator.pushNamedAndRemoveUntil(
             context, "/sign-up", (route) => false);
       }
