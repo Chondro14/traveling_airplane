@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1010745025180",
+    "project_id": "mantap-afbc1",
+    "storage_bucket": "mantap-afbc1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010745025180:android:ff453661290257f5edc359",
+        "android_client_info": {
+          "package_name": "com.example.mantap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1010745025180-51oramjvocks94e0ofpbab5m9vto0lv0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mantap",
+            "certificate_hash": "723b87d7718e2b9373d338ebca456196780b1427"
+          }
+        },
+        {
+          "client_id": "1010745025180-idrl1m4gk7pigj1lenkb7n17qc8s4e7b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD998U2a1cLgE_9jVXAydBy8m2wQ-hK36o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1010745025180-idrl1m4gk7pigj1lenkb7n17qc8s4e7b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
