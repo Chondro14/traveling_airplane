@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mantap/Models/Destination.dart';
 import 'package:mantap/shared/theme.dart';
 import 'package:mantap/view/pages/DetailPage.dart';
 
 class DestinationCard extends StatelessWidget{
-  final String name;
-  final String imageUrl;
-  final String city;
-  final double rating;
+  final DestinationModel model;
 
-  DestinationCard({required this.name,required this.city,required this.imageUrl,required this.rating});
+  DestinationCard({required this.model});
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return GestureDetector(
       onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> DetailPage()));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> DetailPage(model: model,)));
       },
       child: Container(
         margin: EdgeInsets.only(top: 30),
@@ -42,7 +40,7 @@ class DestinationCard extends StatelessWidget{
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(24),
                         image: DecorationImage(
-                            image: AssetImage(imageUrl),
+                            image: NetworkImage(model.imageUrl),
                             fit: BoxFit.fill)),
                     child: Align(
                       alignment: Alignment.topRight,
@@ -67,7 +65,7 @@ class DestinationCard extends StatelessWidget{
                               ),
                             ),
                             Text(
-                              rating.toString(),
+                              model.rating.toString(),
                               style:
                               blackTextStyle.copyWith(fontWeight: medium),
                             )
@@ -82,13 +80,13 @@ class DestinationCard extends StatelessWidget{
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          name,
+                          model.name,
                           style: blackTextStyle.copyWith(
                               fontWeight: medium, fontSize: 18),
                         ),
                         SizedBox(height: 5,),
                         Text(
-                          city,
+                          model.city,
                           style: blackTextStyle.copyWith(
                               fontWeight: light, fontSize: 14),
                         )

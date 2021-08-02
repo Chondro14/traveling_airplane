@@ -2,7 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mantap/cubit/AuthCubit.dart';
+import 'package:mantap/cubit/DestinationCubit.dart';
 import 'package:mantap/cubit/PageCubit.dart';
+import 'package:mantap/cubit/SeatCubit.dart';
 import 'package:mantap/view/pages/BonusPage.dart';
 import 'package:mantap/view/pages/GetStartedPage.dart';
 import 'package:mantap/view/pages/MainPage.dart';
@@ -10,9 +12,9 @@ import 'package:mantap/view/pages/SignInPage.dart';
 import 'package:mantap/view/pages/SignUpPage.dart';
 import 'package:mantap/view/pages/SplashPage.dart';
 
-void main() async{
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -23,7 +25,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context)=>PageCubit()),BlocProvider(create: (context)=>AuthCubit())],
+      providers: [
+        BlocProvider(create: (context) => PageCubit()),
+        BlocProvider(create: (context) => AuthCubit()),
+        BlocProvider(create: (context) => DestinationCubit()),
+        BlocProvider(create: (context)=> SeatCubit())
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -40,16 +47,14 @@ class MyApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false,
         routes: {
-          '/':(context)=>SplashPage(),
-          '/get-started':(context)=>GetStartedPage(),
-          '/sign-up':(context)=>SignUpPage(),
-          '/sign-in':(context)=>SignInPage(),
-          '/bonus':(context)=>BonusPage(),
-          '/main':(context)=>MainPage()
-
+          '/': (context) => SplashPage(),
+          '/get-started': (context) => GetStartedPage(),
+          '/sign-up': (context) => SignUpPage(),
+          '/sign-in': (context) => SignInPage(),
+          '/bonus': (context) => BonusPage(),
+          '/main': (context) => MainPage()
         },
       ),
     );
   }
 }
-

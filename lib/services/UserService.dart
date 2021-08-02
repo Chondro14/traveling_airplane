@@ -20,7 +20,7 @@ class UserService{
   Future<UserModel> getUserById(String id)async{
     try{
       DocumentSnapshot snapshot = await userReference.doc(id).get();
-      return UserModel(id: id, name: snapshot['name'], balance: snapshot['balance'], email: snapshot['email'], hobby: snapshot['balance']);
+      return UserModel(id: id, name: snapshot['name'], balance: snapshot['balance'], email: snapshot['email'], hobby: snapshot['hobby']);
     }
     catch(e){
       throw e;

@@ -9,6 +9,7 @@ class AuthService {
     try{
       UserCredential userCredential = await auth.signInWithEmailAndPassword(email: email, password: password);
       UserModel user = await UserService().getUserById(userCredential.user!.uid);
+
       return user;
     }
     catch (e){

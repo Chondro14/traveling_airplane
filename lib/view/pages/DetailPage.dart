@@ -1,4 +1,6 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
+import 'package:mantap/Models/Destination.dart';
 import 'package:mantap/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:mantap/view/components/CustomButton.dart';
@@ -7,6 +9,8 @@ import 'package:mantap/view/components/PhotoItem.dart';
 import 'package:mantap/view/pages/ChooseSeatPage.dart';
 
 class DetailPage extends StatelessWidget {
+   final DestinationModel model;
+  DetailPage({required this.model,Key? key}):super(key: key);
   @override
   Widget build(BuildContext context) {
     Widget backgroundImage() {
@@ -15,7 +19,7 @@ class DetailPage extends StatelessWidget {
         height: 450,
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/image8.png"), fit: BoxFit.cover)),
+                image: NetworkImage(model.imageUrl), fit: BoxFit.cover)),
       );
     }
 
@@ -26,9 +30,9 @@ class DetailPage extends StatelessWidget {
         height: 214,
         decoration: BoxDecoration(
             gradient: LinearGradient(colors: [
-          whiteColor.withOpacity(0),
-          Colors.black.withOpacity(0.85)
-        ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+              whiteColor.withOpacity(0),
+              Colors.black.withOpacity(0.85)
+            ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
       );
     }
 
@@ -43,7 +47,7 @@ class DetailPage extends StatelessWidget {
               height: 24,
               decoration: BoxDecoration(
                   image:
-                      DecorationImage(image: AssetImage("assets/emblem.png"))),
+                  DecorationImage(image: AssetImage("assets/emblem.png"))),
             ),
             Container(
               margin: EdgeInsets.only(
@@ -56,13 +60,13 @@ class DetailPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Lake Ciliwung",
+                          model.name,
                           style: whiteTextStyle.copyWith(
                               fontSize: 24, fontWeight: semibold),
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-                          "Tangerang",
+                          model.city,
                           style: whiteTextStyle.copyWith(
                               fontSize: 16, fontWeight: light),
                           overflow: TextOverflow.ellipsis,
@@ -81,7 +85,7 @@ class DetailPage extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "4.8",
+                        "${model.rating}",
                         style: whiteTextStyle.copyWith(
                             fontWeight: medium, fontSize: 14),
                       )
@@ -177,7 +181,11 @@ class DetailPage extends StatelessWidget {
             ),
             Container(
               width: double.infinity,
-              margin: EdgeInsets.only(top: 30,left: defaultMargin,right: defaultMargin,bottom: 30),
+              margin: EdgeInsets.only(
+                  top: 30,
+                  left: defaultMargin,
+                  right: defaultMargin,
+                  bottom: 30),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -185,14 +193,29 @@ class DetailPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "IDR 2.500.000",
+                        NumberFormat.currency(locale: "id", symbol: "IDR ")
+                            .format(model.price)
+                            .toString(),
                         style: blackTextStyle.copyWith(
                             fontSize: 18, fontWeight: medium),
                       ),
-                      Text("per Orang",style: blackTextStyle.copyWith(fontSize: 14,fontWeight: light),)
+                      Text(
+                        "per Orang",
+                        style: blackTextStyle.copyWith(
+                            fontSize: 14, fontWeight: light),
+                      )
                     ],
                   ),
-                  CustomButton(title: "Book Now", width: 170, onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> ChooseSeatPage()));}, margin: EdgeInsets.only(left: 15))
+                  CustomButton(
+                      title: "Book Now",
+                      width: 170,
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context)=>ChooseSeatPage(model)));
+                      },
+                      margin: EdgeInsets.only(left: 15))
                 ],
               ),
             )
@@ -211,4 +234,7 @@ class DetailPage extends StatelessWidget {
       ),
     );
   }
+
 }
+
+

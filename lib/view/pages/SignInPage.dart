@@ -51,7 +51,8 @@ class SignInPage extends StatelessWidget{
           title: "Sign In",
           width: double.infinity,
           onPressed: () {
-            context.read<AuthCubit>().signIn(email: emailController.text, password: passwordController.text);
+            print(passwordController.text);
+            context.read<AuthCubit>().signIn(email: emailController.text, password: passwordController.text.toString());
           },
           margin: EdgeInsets.only(top: 50, bottom: 80),
         );
