@@ -5,12 +5,14 @@ import 'package:mantap/cubit/AuthCubit.dart';
 import 'package:mantap/cubit/DestinationCubit.dart';
 import 'package:mantap/cubit/PageCubit.dart';
 import 'package:mantap/cubit/SeatCubit.dart';
+import 'package:mantap/cubit/TransactionCubit.dart';
 import 'package:mantap/view/pages/BonusPage.dart';
 import 'package:mantap/view/pages/GetStartedPage.dart';
 import 'package:mantap/view/pages/MainPage.dart';
 import 'package:mantap/view/pages/SignInPage.dart';
 import 'package:mantap/view/pages/SignUpPage.dart';
 import 'package:mantap/view/pages/SplashPage.dart';
+import 'package:mantap/view/pages/SuccessCheckoutPage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +31,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => PageCubit()),
         BlocProvider(create: (context) => AuthCubit()),
         BlocProvider(create: (context) => DestinationCubit()),
-        BlocProvider(create: (context)=> SeatCubit())
+        BlocProvider(create: (context)=> SeatCubit()),
+        BlocProvider(create: (context)=>TransactionCubit())
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -52,7 +55,8 @@ class MyApp extends StatelessWidget {
           '/sign-up': (context) => SignUpPage(),
           '/sign-in': (context) => SignInPage(),
           '/bonus': (context) => BonusPage(),
-          '/main': (context) => MainPage()
+          '/main': (context) => MainPage(),
+          '/success':(context)=>SuccessCheckoutPage()
         },
       ),
     );

@@ -1,4 +1,9 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
+import 'package:mantap/Models/Transaction.dart';
+import 'package:mantap/cubit/AuthCubit.dart';
+import 'package:mantap/cubit/TransactionCubit.dart';
 import 'package:mantap/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:mantap/view/components/BookingDetailsItems.dart';
@@ -6,6 +11,9 @@ import 'package:mantap/view/components/CustomButton.dart';
 import 'package:mantap/view/pages/SuccessCheckoutPage.dart';
 
 class CheckoutPage extends StatelessWidget {
+  final TransactionModel transactionModel;
+  
+  CheckoutPage({required this.transactionModel});
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -86,7 +94,7 @@ class CheckoutPage extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(18),
                         image: DecorationImage(
-                            image: AssetImage("assets/image8.png"),
+                            image: NetworkImage(transactionModel.destinationModel.imageUrl),
                             fit: BoxFit.cover)),
                   ),
                   Expanded(
@@ -94,7 +102,7 @@ class CheckoutPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Lake Ciliwung",
+                          transactionModel.destinationModel.name,
                           style: blackTextStyle.copyWith(
                               fontWeight: medium, fontSize: 18),
                         ),
@@ -102,7 +110,7 @@ class CheckoutPage extends StatelessWidget {
                           height: 5,
                         ),
                         Text(
-                          "Tangerang",
+                          transactionModel.destinationModel.city,
                           style: blackTextStyle.copyWith(
                               fontSize: 14, fontWeight: light),
                         )
@@ -120,7 +128,7 @@ class CheckoutPage extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "4.8",
+                        transactionModel.destinationModel.rating.toString(),
                         style: blackTextStyle.copyWith(
                             fontSize: 14, fontWeight: medium),
                       )
@@ -139,37 +147,37 @@ class CheckoutPage extends StatelessWidget {
             ),
             BookingDetailsItems(
               title: "Traveler",
-              valueText: "2 Persons",
+              valueText: "${transactionModel.amountOfTraveler} Persons",
               valueColor: blackColor,
             ),
             BookingDetailsItems(
               title: "Seat",
-              valueText: "A3,B3",
+              valueText: transactionModel.selectedSeats,
               valueColor: blackColor,
             ),
             BookingDetailsItems(
               title: "Insurance",
-              valueText: "YES",
+              valueText: transactionModel.insurance ? "YES":"NO",
               valueColor: greenColor,
             ),
             BookingDetailsItems(
               title: "Refundable",
-              valueText: "NO",
+              valueText: transactionModel.refundable ? "YES":"NO",
               valueColor: redColor,
             ),
             BookingDetailsItems(
               title: "V A T",
-              valueText: "45%",
+              valueText: "${transactionModel.vat * 100}%",
               valueColor: blackColor,
             ),
             BookingDetailsItems(
               title: "Price",
-              valueText: "IDR 8.500.000",
+              valueText: NumberFormat.currency(locale: "id",symbol: "IDR ",decimalDigits: 0).format(transactionModel.price),
               valueColor: blackColor,
             ),
             BookingDetailsItems(
               title: "Grand Total",
-              valueText: "IDR 12.000.000",
+              valueText: NumberFormat.currency(locale: "id",symbol: "IDR ",decimalDigits: 0).format(transactionModel.grandTotal),
               valueColor: primaryColor,
             ),
           ],
@@ -248,11 +256,24 @@ class CheckoutPage extends StatelessWidget {
     }
 
     Widget payNowButton() {
-      return CustomButton(
-          title: "Pay Now",
-          width: double.infinity,
-          onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context)=>SuccessCheckoutPage()));},
-          margin: EdgeInsets.only(top: 30, bottom: 30));
+      return BlocConsumer<TransactionCubit,TransactionState>(builder: (context,state){
+        if(state is TransactionLoading){
+          return Container(alignment: Alignment.center,margin: EdgeInsets.only(top: 30),child: CircularProgressIndicator(),);
+        }
+        return CustomButton(
+            title: "Pay Now",
+            width: double.infinity,
+            onPressed: () {context.read<TransactionCubit>().createTransaction(transactionModel);},
+            margin: EdgeInsets.only(top: 30, bottom: 30));
+      }, listener: (context,state){
+        if(state is TransactionSuccess){
+          Navigator.pushNamedAndRemoveUntil(context,"/success" , (route) => false);
+        }
+        else if(state is TransactionFailed){
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(backgroundColor: redColor,content: Text(state.error)));
+        }
+      });
+
     }
 
     Widget tacButton() {

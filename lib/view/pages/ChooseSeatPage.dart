@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mantap/Models/Destination.dart';
+import 'package:mantap/Models/Transaction.dart';
 import 'package:mantap/cubit/SeatCubit.dart';
 import 'package:mantap/shared/theme.dart';
 import 'package:flutter/material.dart';
@@ -8,12 +9,10 @@ import 'package:mantap/view/components/CustomButton.dart';
 import 'package:mantap/view/components/SeatItem.dart';
 import 'package:mantap/view/pages/CheckoutPage.dart';
 
-
 class ChooseSeatPage extends StatefulWidget {
-
   DestinationModel model;
 
-  ChooseSeatPage(this.model, {Key? key}) :super(key: key);
+  ChooseSeatPage(this.model, {Key? key}) : super(key: key);
 
   @override
   _ChooseSeatPageState createState() => _ChooseSeatPageState();
@@ -189,17 +188,15 @@ class _ChooseSeatPageState extends State<ChooseSeatPage> {
                         height: 48,
                         child: Center(
                             child: Text(
-                              "1",
-                              style: greyTextStyle.copyWith(
-                                  fontSize: 16, fontWeight: regular),
-                            )),
+                          "1",
+                          style: greyTextStyle.copyWith(
+                              fontSize: 16, fontWeight: regular),
+                        )),
                       ),
                       SeatItem(
-
                         id: "C1",
                       ),
                       SeatItem(
-
                         id: "D1",
                       )
                     ],
@@ -210,11 +207,9 @@ class _ChooseSeatPageState extends State<ChooseSeatPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       SeatItem(
-
                         id: "A2",
                       ),
                       SeatItem(
-
                         id: "B2",
                       ),
                       Container(
@@ -222,17 +217,15 @@ class _ChooseSeatPageState extends State<ChooseSeatPage> {
                         height: 48,
                         child: Center(
                             child: Text(
-                              "2",
-                              style: greyTextStyle.copyWith(
-                                  fontSize: 16, fontWeight: regular),
-                            )),
+                          "2",
+                          style: greyTextStyle.copyWith(
+                              fontSize: 16, fontWeight: regular),
+                        )),
                       ),
                       SeatItem(
-
                         id: "C2",
                       ),
                       SeatItem(
-
                         id: "D2",
                       )
                     ],
@@ -243,11 +236,9 @@ class _ChooseSeatPageState extends State<ChooseSeatPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       SeatItem(
-
                         id: "A3",
                       ),
                       SeatItem(
-
                         id: "B3",
                       ),
                       Container(
@@ -255,17 +246,15 @@ class _ChooseSeatPageState extends State<ChooseSeatPage> {
                         height: 48,
                         child: Center(
                             child: Text(
-                              "3",
-                              style: greyTextStyle.copyWith(
-                                  fontSize: 16, fontWeight: regular),
-                            )),
+                          "3",
+                          style: greyTextStyle.copyWith(
+                              fontSize: 16, fontWeight: regular),
+                        )),
                       ),
                       SeatItem(
-
                         id: "C3",
                       ),
                       SeatItem(
-
                         id: "D3",
                       )
                     ],
@@ -276,11 +265,9 @@ class _ChooseSeatPageState extends State<ChooseSeatPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       SeatItem(
-
                         id: "A4",
                       ),
                       SeatItem(
-
                         id: "B4",
                       ),
                       Container(
@@ -288,17 +275,15 @@ class _ChooseSeatPageState extends State<ChooseSeatPage> {
                         height: 48,
                         child: Center(
                             child: Text(
-                              "4",
-                              style: greyTextStyle.copyWith(
-                                  fontSize: 16, fontWeight: regular),
-                            )),
+                          "4",
+                          style: greyTextStyle.copyWith(
+                              fontSize: 16, fontWeight: regular),
+                        )),
                       ),
                       SeatItem(
-
                         id: "C4",
                       ),
                       SeatItem(
-
                         id: "D4",
                       )
                     ],
@@ -309,11 +294,9 @@ class _ChooseSeatPageState extends State<ChooseSeatPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       SeatItem(
-
                         id: "A5",
                       ),
                       SeatItem(
-
                         id: "B5",
                       ),
                       Container(
@@ -321,17 +304,15 @@ class _ChooseSeatPageState extends State<ChooseSeatPage> {
                         height: 48,
                         child: Center(
                             child: Text(
-                              "5",
-                              style: greyTextStyle.copyWith(
-                                  fontSize: 16, fontWeight: regular),
-                            )),
+                          "5",
+                          style: greyTextStyle.copyWith(
+                              fontSize: 16, fontWeight: regular),
+                        )),
                       ),
                       SeatItem(
-
                         id: "C5",
                       ),
                       SeatItem(
-
                         id: "D5",
                       )
                     ],
@@ -356,7 +337,6 @@ class _ChooseSeatPageState extends State<ChooseSeatPage> {
                     )
                   ],
                 ),
-
               ),
               Container(
                 margin: EdgeInsets.only(top: 30),
@@ -369,7 +349,7 @@ class _ChooseSeatPageState extends State<ChooseSeatPage> {
                     ),
                     Text(
                       NumberFormat.currency(
-                          symbol: "IDR ", locale: "id", decimalDigits: 0)
+                              symbol: "IDR ", locale: "id", decimalDigits: 0)
                           .format(state.length * widget.model.price),
                       style: blackTextStyle.copyWith(
                           fontSize: 16, fontWeight: medium),
@@ -384,14 +364,29 @@ class _ChooseSeatPageState extends State<ChooseSeatPage> {
     }
 
     Widget checkoutButton() {
-      return CustomButton(
-          title: "Continue to Checkout",
-          width: double.infinity,
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => CheckoutPage()));
-          },
-          margin: EdgeInsets.only(top: 30, bottom: 46));
+
+      return BlocBuilder<SeatCubit, List<String>>(builder: (context, state) {
+        return CustomButton(
+            title: "Continue to Checkout",
+            width: double.infinity,
+            onPressed: () {
+              int price = widget.model.price * state.length;
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CheckoutPage(
+                            transactionModel: TransactionModel(
+                              destinationModel: widget.model,
+                              amountOfTraveler: state.length,
+                              selectedSeats: state.join(', '),
+                              price: price,
+                              vat: 0.45,
+                              grandTotal: price + (price * 0.45).toInt()
+                            ),
+                          )));
+            },
+            margin: EdgeInsets.only(top: 30, bottom: 46));
+      });
     }
 
     return Scaffold(
